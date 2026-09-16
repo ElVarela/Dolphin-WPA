@@ -1,0 +1,10 @@
+{
+  "name": "Dolphin WPA",
+  "short_name": "DolphinWPA",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#05070d",
+  "theme_color": "#05070d"
+}
