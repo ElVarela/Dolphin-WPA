@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Dolphin WPA">
+  <title>Dolphin WPA</title>
+  <link rel="manifest" href="./manifest.json">
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #05070d;
+      color: #f5f7ff;
+    }
+
+    main {
+      width: 100%;
+      max-width: 960px;
+      min-height: 100vh;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    #pantallaGba {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: 0;
+      border-radius: 16px;
+      background: #0f1729;
+      object-fit: cover;
+    }
+
+    .status {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.95rem;
+    }
+
+    #virtualControls {
+      display: none;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    #virtualControls.visible {
+      display: flex;
+    }
+
+    .dpad,
+    .actions {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .dpad {
+      grid-template-columns: repeat(3, minmax(60px, 80px));
+      grid-template-rows: repeat(3, minmax(60px, 80px));
+      align-items: center;
+      justify-items: center;
+    }
+
+    .actions {
+      grid-template-columns: repeat(2, minmax(72px, 88px));
+      align-items: center;
+      justify-items: center;
+    }
+
+    .ghost {
+      visibility: hidden;
+    }
+
+    button {
+      width: 100%;
+      min-height: 60px;
+      border: 0;
+      border-radius: 999px;
+      background: #1c2740;
+      color: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      box-shadow: inset 0 -3px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    button:active,
+    button.is-active {
+      background: #425b9a;
+      transform: scale(0.98);
+    }
+
+    pre {
+      margin: 0;
+      padding: 1rem;
+      border-radius: 12px;
+      background: rgba(28, 39, 64, 0.7);
+      overflow: auto;
+      font-size: 0.8rem;
+    }
+
+    @media (orientation: landscape) {
+      main {
+        padding: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <video id="pantallaGba" autoplay playsinline></video>
+
+    <section class="status" aria-live="polite">
+      <span id="controllerStatus">Buscando gamepad…</span>
+      <span id="inputSource">Fuente: virtual</span>
+    </section>
+
+    <section id="virtualControls" class="visible" aria-label="Mando virtual">
+      <div class="dpad">
+        <span class="ghost"></span>
+        <button type="button" data-axis="up">▲</button>
+        <span class="ghost"></span>
+        <button type="button" data-axis="left">◀</button>
+        <span class="ghost"></span>
+        <button type="button" data-axis="right">▶</button>
+        <span class="ghost"></span>
+        <button type="button" data-axis="down">▼</button>
+        <span class="ghost"></span>
+      </div>
+
+      <div class="actions">
+        <button type="button" data-button="buttonY">Y</button>
+        <button type="button" data-button="buttonX">X</button>
+        <button type="button" data-button="buttonB">B</button>
+        <button type="button" data-button="buttonA">A</button>
+      </div>
+    </section>
+
+    <pre id="inputPayloadView" aria-label="Estado del input"></pre>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
